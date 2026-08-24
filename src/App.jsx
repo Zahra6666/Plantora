@@ -1,7 +1,7 @@
-import PlantDoctor from "./pages/PlantDoctor/PlantDoctor";
+import Home from "../src/pages/Home";
 
 function App() {
-  return <PlantDoctor />;
+  return <Home />;
 }
 
 export default App;
