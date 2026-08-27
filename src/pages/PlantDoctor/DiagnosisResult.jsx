@@ -2,58 +2,95 @@ function DiagnosisResult({ diagnosis, image, onReset }) {
   if (!diagnosis) return null;
 
   return (
-    <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-md">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-green-800">نتيجة التشخيص 🌿</h2>
+    <div className="mx-auto w-full max-w-5xl">
+      {/* Result header */}
+      <div className="mb-8 text-center">
+        <div className="mb-3 text-5xl">🌿</div>
 
-        <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
-          إليك نتيجة فحص نبتتك
-        </span>
+        <h2 className="font-[Katibeh] text-6xl text-[#A2B447]">
+          نتيجة التشخيص
+        </h2>
+
+        <p className="mt-2 text-[#EFF4BD]/60">
+          إليك ما اكتشفه طبيب النباتات عن نبتتك
+        </p>
       </div>
 
-      {image && (
-        <img
-          src={URL.createObjectURL(image)}
-          alt="النبتة"
-          className="mb-6 max-h-72 w-full rounded-xl object-contain"
-        />
-      )}
+      {/* Result layout */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Image card */}
+        {image && (
+          <div className="flex min-h-[500px] items-center justify-center rounded-[2.5rem] border border-[#EFF4BD]/15 bg-[#516F7A]/20 p-6 shadow-2xl backdrop-blur-md">
+            <img
+              src={URL.createObjectURL(image)}
+              alt="النبتة"
+              className="max-h-[450px] max-w-full rounded-3xl object-contain shadow-2xl"
+            />
+          </div>
+        )}
 
-      <div className="space-y-4">
-        <div className="rounded-xl bg-green-50 p-4">
-          <h3 className="font-semibold text-green-800">🌱 اسم النبتة</h3>
+        {/* Information */}
+        <div className="grid gap-4">
+          {/* Plant name */}
+          <div className="rounded-3xl border border-[#A2B447]/10 bg-[#516F7A]/20 p-6 shadow-lg backdrop-blur-md">
+            <span className="text-sm text-[#A2B447]/70">اسم النبتة</span>
 
-          <p className="mt-1 text-gray-700">{diagnosis.plantName}</p>
-        </div>
+            <h3 className="mt-2 text-2xl font-bold text-[#EFF4BD]">
+              🌱 {diagnosis.plantName}
+            </h3>
+          </div>
 
-        <div className="rounded-xl bg-green-50 p-4">
-          <h3 className="font-semibold text-green-800">❤️ حالة النبتة</h3>
+          {/* Health */}
+          <div className="rounded-3xl border border-[#A2B447]/10 bg-[#516F7A]/20 p-6 shadow-lg backdrop-blur-md">
+            <span className="text-sm text-[#A2B447]/70">الصحة العامة</span>
 
-          <p className="mt-1 text-gray-700">{diagnosis.condition}</p>
-        </div>
+            <h3 className="mt-2 text-xl font-bold text-[#EFF4BD]">
+              🩺 {diagnosis.health}
+            </h3>
+          </div>
 
-        <div className="rounded-xl bg-green-50 p-4">
-          <h3 className="font-semibold text-green-800">🩺 الصحة العامة</h3>
+          {/* Condition */}
+          <div className="rounded-3xl border border-[#A2B447]/10 bg-[#516F7A]/20 p-6 shadow-lg backdrop-blur-md">
+            <span className="text-sm text-[#A2B447]/70">حالة النبتة</span>
 
-          <p className="mt-1 text-gray-700">{diagnosis.health}</p>
-        </div>
-
-        <div className="rounded-xl bg-green-50 p-4">
-          <h3 className="font-semibold text-green-800">🌿 نصائح العناية</h3>
-
-          <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-700">
-            {diagnosis.careSteps?.map((step, index) => (
-              <li key={index}>{step}</li>
-            ))}
-          </ul>
+            <p className="mt-3 leading-relaxed text-[#EFF4BD]/80">
+              ❤️ {diagnosis.condition}
+            </p>
+          </div>
         </div>
       </div>
 
+      {/* Care steps */}
+      <div className="mt-6 rounded-[2.5rem] border border-[#A2B447]/10 bg-[#516F7A]/20 p-6 shadow-2xl backdrop-blur-md md:p-8">
+        <span className="text-sm text-[#A2B447]/70">نصائح العناية</span>
+
+        <ul className="mt-5 grid gap-4 md:grid-cols-3">
+          {diagnosis.careSteps?.map((step, index) => (
+            <li key={index} className="rounded-2xl bg-[#23361A]/60 p-5">
+              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-[#A2B447] font-bold text-[#23361A]">
+                {index + 1}
+              </div>
+
+              <p className="leading-relaxed text-[#EFF4BD]/80">{step}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Reset */}
       <button
         onClick={onReset}
-        className="mt-6 w-full rounded-xl border border-green-700 px-6 py-3 font-semibold text-green-700 transition hover:bg-green-50"
+        className="
+          mt-6 w-full rounded-2xl
+          border border-[#A2B447]/40
+          px-6 py-4
+          font-semibold text-[#A2B447]
+          transition-all duration-300
+          hover:bg-[#A2B447]
+          hover:text-[#23361A]
+        "
       >
-        تشخيص نبتة أخرى
+        تشخيص نبتة أخرى 🌱
       </button>
     </div>
   );

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function FeatureCard({
   href,
   number,
@@ -13,8 +15,8 @@ function FeatureCard({
   actionText,
 }) {
   return (
-    <a
-      href={href}
+    <Link
+      to={href}
       className={`
         feature-card
         group relative flex h-[52vh] w-[48vw] max-w-[620px]
@@ -107,7 +109,7 @@ function FeatureCard({
           ←
         </span>
       </div>
-    </a>
+    </Link>
   );
 }
 

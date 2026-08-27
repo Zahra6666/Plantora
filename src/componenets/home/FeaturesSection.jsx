@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import FeatureCard from "./FeatureCard";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,8 +21,10 @@ function FeaturesSection() {
         scrollTrigger: {
           trigger: horizontalRef.current,
           start: "top top",
+
           end: () =>
             `+=${cardsRef.current.scrollWidth - horizontalRef.current.offsetWidth}`,
+
           scrub: 1,
           pin: true,
           anticipatePin: 1,
@@ -89,7 +92,8 @@ function FeaturesSection() {
         <div
           className="
             absolute left-[20%] top-[15%]
-            h-6 w-6 rounded-full
+            h-6 w-6
+            rounded-full
             bg-[#A2B447]/50
           "
         />
@@ -97,7 +101,8 @@ function FeaturesSection() {
         <div
           className="
             absolute left-[60%] top-[70%]
-            h-3 w-3 rounded-full
+            h-3 w-3
+            rounded-full
             bg-[#516F7A]/40
           "
         />
@@ -105,7 +110,8 @@ function FeaturesSection() {
         <div
           className="
             absolute right-[15%] top-[25%]
-            h-10 w-10 rounded-full
+            h-10 w-10
+            rounded-full
             bg-[#556F30]/20
           "
         />
@@ -122,6 +128,7 @@ function FeaturesSection() {
           px-[15vw]
         "
       >
+        {/* My Plants */}
         <FeatureCard
           href="/my-plants"
           number="01"
@@ -137,6 +144,7 @@ function FeaturesSection() {
           actionText="اكتشف المزيد"
         />
 
+        {/* Plant Doctor */}
         <FeatureCard
           href="/plant-doctor"
           number="02"
@@ -152,6 +160,7 @@ function FeaturesSection() {
           actionText="ابدأ التشخيص"
         />
 
+        {/* Plant Match */}
         <FeatureCard
           href="/discover"
           number="03"
