@@ -1,8 +1,4 @@
-import {
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -14,15 +10,14 @@ import Plants from "../data/Plants.js";
 
 import { getPlantMatches } from "../utils/plantMatching.js";
 
-import {
-  getMyPlants,
-  addMyPlant,
-} from "../utils/myPlantsStorage.js";
+import { getMyPlants, addMyPlant } from "../utils/myPlantsStorage.js";
 
 import ProgressBar from "../components/PlantMatch/ProgressBar.jsx";
 import QuestionCard from "../components/PlantMatch/QuestionCard.jsx";
 import PlantCard from "../components/PlantMatch/PlantCard.jsx";
 import PlantDetails from "../components/PlantMatch/PlantDetails.jsx";
+
+import BackToHome from "../components/BackToHome";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -194,44 +189,15 @@ function BotanicalBackground() {
         viewBox="0 0 100 100"
         ref={(el) => (flowerRefs.current[0] = el)}
       >
-        <circle
-          cx="50"
-          cy="50"
-          r="12"
-          fill="#A2B447"
-        />
+        <circle cx="50" cy="50" r="12" fill="#A2B447" />
 
-        <ellipse
-          cx="50"
-          cy="20"
-          rx="14"
-          ry="25"
-          fill="#EFF4BD"
-        />
+        <ellipse cx="50" cy="20" rx="14" ry="25" fill="#EFF4BD" />
 
-        <ellipse
-          cx="50"
-          cy="80"
-          rx="14"
-          ry="25"
-          fill="#EFF4BD"
-        />
+        <ellipse cx="50" cy="80" rx="14" ry="25" fill="#EFF4BD" />
 
-        <ellipse
-          cx="20"
-          cy="50"
-          rx="25"
-          ry="14"
-          fill="#EFF4BD"
-        />
+        <ellipse cx="20" cy="50" rx="25" ry="14" fill="#EFF4BD" />
 
-        <ellipse
-          cx="80"
-          cy="50"
-          rx="25"
-          ry="14"
-          fill="#EFF4BD"
-        />
+        <ellipse cx="80" cy="50" rx="25" ry="14" fill="#EFF4BD" />
       </svg>
 
       <svg
@@ -239,44 +205,15 @@ function BotanicalBackground() {
         viewBox="0 0 100 100"
         ref={(el) => (flowerRefs.current[1] = el)}
       >
-        <circle
-          cx="50"
-          cy="50"
-          r="10"
-          fill="#556F30"
-        />
+        <circle cx="50" cy="50" r="10" fill="#556F30" />
 
-        <ellipse
-          cx="50"
-          cy="20"
-          rx="12"
-          ry="22"
-          fill="#A2B447"
-        />
+        <ellipse cx="50" cy="20" rx="12" ry="22" fill="#A2B447" />
 
-        <ellipse
-          cx="50"
-          cy="80"
-          rx="12"
-          ry="22"
-          fill="#A2B447"
-        />
+        <ellipse cx="50" cy="80" rx="12" ry="22" fill="#A2B447" />
 
-        <ellipse
-          cx="20"
-          cy="50"
-          rx="22"
-          ry="12"
-          fill="#A2B447"
-        />
+        <ellipse cx="20" cy="50" rx="22" ry="12" fill="#A2B447" />
 
-        <ellipse
-          cx="80"
-          cy="50"
-          rx="22"
-          ry="12"
-          fill="#A2B447"
-        />
+        <ellipse cx="80" cy="50" rx="22" ry="12" fill="#A2B447" />
       </svg>
     </div>
   );
@@ -289,16 +226,13 @@ function PlantMatch() {
   const heroRef = useRef(null);
   const contentRef = useRef(null);
 
-  const [currentQuestion, setCurrentQuestion] =
-    useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState([]);
-  const [showResults, setShowResults] =
-    useState(false);
+  const [showResults, setShowResults] = useState(false);
 
-  const [selectedPlant, setSelectedPlant] =
-    useState(null);
+  const [selectedPlant, setSelectedPlant] = useState(null);
 
   const [myPlants, setMyPlants] = useState(() => {
     try {
@@ -309,19 +243,15 @@ function PlantMatch() {
     }
   });
 
-  const [isCalculating, setIsCalculating] =
-    useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   const [error, setError] = useState(null);
 
-  const question =
-    plantQuestions[currentQuestion];
+  const question = plantQuestions[currentQuestion];
 
-  const totalQuestions =
-    plantQuestions.length;
+  const totalQuestions = plantQuestions.length;
 
-  const selectedAnswer =
-    answers[question.category];
+  const selectedAnswer = answers[question.category];
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -347,10 +277,7 @@ function PlantMatch() {
   useLayoutEffect(() => {
     if (!showResults) return;
 
-    const cards =
-      document.querySelectorAll(
-        ".plant-result-card"
-      );
+    const cards = document.querySelectorAll(".plant-result-card");
 
     const animation = gsap.fromTo(
       cards,
@@ -370,17 +297,15 @@ function PlantMatch() {
           trigger: ".plant-results-grid",
           start: "top 85%",
         },
-      }
+      },
     );
 
     return () => {
       animation.kill();
 
-      ScrollTrigger.getAll().forEach(
-        (trigger) => {
-          trigger.kill();
-        }
-      );
+      ScrollTrigger.getAll().forEach((trigger) => {
+        trigger.kill();
+      });
     };
   }, [showResults]);
 
@@ -400,7 +325,7 @@ function PlantMatch() {
         duration: 0.3,
         ease: "back.out(2)",
         stagger: 0.03,
-      }
+      },
     );
   };
 
@@ -414,10 +339,7 @@ function PlantMatch() {
 
     setAnswers(updatedAnswers);
 
-    if (
-      currentQuestion <
-      totalQuestions - 1
-    ) {
+    if (currentQuestion < totalQuestions - 1) {
       gsap.to(".question-card", {
         opacity: 0,
         x: -35,
@@ -425,9 +347,7 @@ function PlantMatch() {
         ease: "power2.in",
 
         onComplete: () => {
-          setCurrentQuestion(
-            (previous) => previous + 1
-          );
+          setCurrentQuestion((previous) => previous + 1);
 
           gsap.fromTo(
             ".question-card",
@@ -440,7 +360,7 @@ function PlantMatch() {
               x: 0,
               duration: 0.5,
               ease: "power3.out",
-            }
+            },
           );
         },
       });
@@ -453,15 +373,10 @@ function PlantMatch() {
 
     setTimeout(() => {
       try {
-        const matches = getPlantMatches(
-          updatedAnswers,
-          Plants
-        );
+        const matches = getPlantMatches(updatedAnswers, Plants);
 
         if (!matches) {
-          throw new Error(
-            "Unable to calculate matches"
-          );
+          throw new Error("Unable to calculate matches");
         }
 
         setResults(matches);
@@ -469,9 +384,7 @@ function PlantMatch() {
       } catch (error) {
         console.error(error);
 
-        setError(
-          "حدث خطأ أثناء حساب النتائج."
-        );
+        setError("حدث خطأ أثناء حساب النتائج.");
       } finally {
         setIsCalculating(false);
       }
@@ -488,9 +401,7 @@ function PlantMatch() {
       ease: "power2.in",
 
       onComplete: () => {
-        setCurrentQuestion(
-          (previous) => previous - 1
-        );
+        setCurrentQuestion((previous) => previous - 1);
 
         gsap.fromTo(
           ".question-card",
@@ -503,7 +414,7 @@ function PlantMatch() {
             x: 0,
             duration: 0.5,
             ease: "power3.out",
-          }
+          },
         );
       },
     });
@@ -526,7 +437,7 @@ function PlantMatch() {
           scale: 1,
           duration: 0.45,
           ease: "power3.out",
-        }
+        },
       );
     }, 0);
   };
@@ -534,9 +445,7 @@ function PlantMatch() {
   const handleAddToMyPlants = (plant) => {
     const currentPlants = getMyPlants();
 
-    const alreadyAdded = currentPlants.some(
-      (item) => item.id === plant.id
-    );
+    const alreadyAdded = currentPlants.some((item) => item.id === plant.id);
 
     if (!alreadyAdded) {
       addMyPlant(plant);
@@ -572,8 +481,8 @@ function PlantMatch() {
         dir="rtl"
         className="relative min-h-screen overflow-hidden bg-[#556F30] px-5 py-12"
       >
+        <BackToHome />
         <BotanicalBackground />
-
         <div className="relative z-10 flex min-h-[80vh] items-center justify-center">
           <div className="w-full max-w-lg rounded-[2rem] border border-[#EFF4BD]/15 bg-[#362F22]/90 p-10 text-center shadow-[0_35px_100px_rgba(0,0,0,0.35)] backdrop-blur-xl">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-[#A2B447]/40 bg-[#23361A] text-2xl font-bold text-[#A2B447]">
@@ -610,6 +519,7 @@ function PlantMatch() {
         dir="rtl"
         className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#556F30] px-5"
       >
+        <BackToHome />
         <BotanicalBackground />
 
         <div className="relative z-10 w-full max-w-lg rounded-[2rem] border border-[#EFF4BD]/15 bg-[#362F22]/90 p-10 text-center shadow-[0_35px_100px_rgba(0,0,0,0.35)] backdrop-blur-xl">
@@ -620,8 +530,7 @@ function PlantMatch() {
           </h2>
 
           <p className="mt-3 font-katibeh text-2xl leading-9 text-[#EFF4BD]/60">
-            تتم مقارنة الإجابات مع احتياجات
-            النباتات.
+            تتم مقارنة الإجابات مع احتياجات النباتات.
           </p>
 
           <div className="mx-auto mt-8 h-1.5 w-52 overflow-hidden rounded-full bg-[#23361A]">
@@ -638,6 +547,7 @@ function PlantMatch() {
         dir="rtl"
         className="relative min-h-screen overflow-hidden bg-[#556F30] px-5 py-14 sm:px-8 lg:py-20"
       >
+        <BackToHome />
         <BotanicalBackground />
 
         <div className="relative z-10 mx-auto max-w-7xl plant-results-content">
@@ -647,15 +557,11 @@ function PlantMatch() {
             </span>
 
             <h1 className="mt-7 font-katibeh text-6xl leading-none text-[#EFF4BD] sm:text-8xl">
-              النباتات{" "}
-              <span className="text-[#A2B447]">
-                المناسبة
-              </span>
+              النباتات <span className="text-[#A2B447]">المناسبة</span>
             </h1>
 
             <p className="mt-6 font-katibeh text-2xl leading-9 text-[#EFF4BD]/65">
-              تم ترتيب النباتات حسب نسبة
-              توافقها مع إجاباتك واحتياجاتك.
+              تم ترتيب النباتات حسب نسبة توافقها مع إجاباتك واحتياجاتك.
             </p>
           </header>
 
@@ -666,8 +572,7 @@ function PlantMatch() {
               </h2>
 
               <p className="mt-4 font-katibeh text-2xl leading-9 text-[#EFF4BD]/60">
-                جرّب إجابات مختلفة للعثور على
-                نبات أكثر توافقًا.
+                جرّب إجابات مختلفة للعثور على نبات أكثر توافقًا.
               </p>
 
               <button
@@ -710,18 +615,11 @@ function PlantMatch() {
 
               <div className="plant-results-grid grid gap-7 md:grid-cols-2 xl:grid-cols-3">
                 {results.map((plant) => (
-                  <div
-                    key={plant.id}
-                    className="plant-result-card"
-                  >
+                  <div key={plant.id} className="plant-result-card">
                     <PlantCard
                       plant={plant}
-                      onViewDetails={
-                        handleViewDetails
-                      }
-                      onAddToMyPlants={
-                        handleAddToMyPlants
-                      }
+                      onViewDetails={handleViewDetails}
+                      onAddToMyPlants={handleAddToMyPlants}
                     />
                   </div>
                 ))}
@@ -732,16 +630,9 @@ function PlantMatch() {
           {selectedPlant && (
             <PlantDetails
               plant={selectedPlant}
-              onClose={() =>
-                setSelectedPlant(null)
-              }
-              onAddToMyPlants={
-                handleAddToMyPlants
-              }
-              isAdded={myPlants.some(
-                (item) =>
-                  item.id === selectedPlant.id
-              )}
+              onClose={() => setSelectedPlant(null)}
+              onAddToMyPlants={handleAddToMyPlants}
+              isAdded={myPlants.some((item) => item.id === selectedPlant.id)}
             />
           )}
 
@@ -767,36 +658,27 @@ function PlantMatch() {
       dir="rtl"
       className="relative min-h-screen overflow-hidden bg-[#556F30] px-5 py-14 sm:px-8 lg:py-20"
     >
+      <BackToHome />
       <BotanicalBackground />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <header
-          ref={heroRef}
-          className="mx-auto mb-14 max-w-4xl text-center"
-        >
+        <header ref={heroRef} className="mx-auto mb-14 max-w-4xl text-center">
           <span className="inline-flex rounded-full border border-[#EFF4BD]/20 bg-[#23361A]/60 px-5 py-2 text-xs font-bold tracking-[0.25em] text-[#EFF4BD] backdrop-blur-md">
             PLANT MATCH
           </span>
 
           <h1 className="mt-7 font-katibeh text-7xl leading-none text-[#EFF4BD] sm:text-8xl">
-            اكتشف النبات{" "}
-            <span className="text-[#A2B447]">
-              المناسب
-            </span>
+            اكتشف النبات <span className="text-[#A2B447]">المناسب</span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl font-katibeh text-2xl leading-10 text-[#EFF4BD]/65">
-            أجب عن مجموعة من الأسئلة البسيطة
-            لنحدد النباتات التي تتوافق مع
+            أجب عن مجموعة من الأسئلة البسيطة لنحدد النباتات التي تتوافق مع
             احتياجاتك وأسلوب حياتك.
           </p>
         </header>
 
         <div ref={contentRef}>
-          <ProgressBar
-            current={currentQuestion + 1}
-            total={totalQuestions}
-          />
+          <ProgressBar current={currentQuestion + 1} total={totalQuestions} />
 
           <QuestionCard
             question={question}
@@ -820,8 +702,7 @@ function PlantMatch() {
               disabled={!selectedAnswer}
               className="rounded-xl bg-[#A2B447] px-9 py-3.5 font-katibeh text-xl text-[#23361A] shadow-[0_15px_40px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#EFF4BD] hover:shadow-[0_20px_50px_rgba(0,0,0,0.25)] disabled:cursor-not-allowed disabled:opacity-30"
             >
-              {currentQuestion ===
-              totalQuestions - 1
+              {currentQuestion === totalQuestions - 1
                 ? "عرض النتائج"
                 : "التالي"}
             </button>
